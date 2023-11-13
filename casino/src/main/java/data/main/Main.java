@@ -1,4 +1,4 @@
-package data;
+package data.main;
 
 public class Main {
     public static void main(String[] args) {
