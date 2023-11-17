@@ -59,7 +59,18 @@ public abstract class Case {
      * @return
      */
     public static Case createCupcake(boolean full) {
-        return new Case("cupcake") {
+
+        // Creates the proper label depending on if it's full or not
+        String label = "";
+        if (full) {
+            label += "Full ";
+        } else {
+            label += "Half ";
+        }
+
+        label += "Cupcake";
+
+        return new Case(label) {
 
             @Override
             public int applyChanges(int currentValue) {
@@ -69,5 +80,19 @@ public abstract class Case {
 
         };
     }
+
+    // Instadeath cases, self explanatory
+    public static Case createDeath() {
+        return new Case("Instadeath") {
+
+            @Override
+            public int applyChanges(int currentValue) {
+                // Unadded death stuff, will get to after the gui is in a good state
+                throw new UnsupportedOperationException("Unimplemented death handling");
+            }
+
+        };
+    }
+
 
 }
