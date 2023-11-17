@@ -123,6 +123,15 @@ public class Board extends ArrayList<ArrayList<Case>> {
         return temp;
     }
 
+    // Returns a case and removes it from the matrix
+    public Case chooseCase(int row, int col) {
+        
+        Case temp = getCaseAt(row, col);
+        get(row).remove(col);
+        return temp;
+
+    }
+
     // Method to return the case at a specific row and colomn
     public Case getCaseAt(int row, int col) {
         return get(row).get(col);
