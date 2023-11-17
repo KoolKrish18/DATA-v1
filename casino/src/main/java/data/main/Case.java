@@ -7,7 +7,7 @@ public abstract class Case {
 
     private String label; // Variable to be used to display a value on the graphics
 
-    public String getLabel() {
+    public String toString() {
         return label;
     }
 
