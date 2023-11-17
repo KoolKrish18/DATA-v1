@@ -3,13 +3,15 @@ package data.main;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Board extends ArrayList<ArrayList<Case>> {
-    
+
     public Board() {
 
-        initVars(); // Initializes all of the amounts (say we want two "2x" cases, this allows for quick and easy changes of that)
-        
+        initVars(); // Initializes all of the amounts (say we want two "2x" cases, this allows for
+                    // quick and easy changes of that)
+
     }
 
     /*
@@ -29,13 +31,14 @@ public class Board extends ArrayList<ArrayList<Case>> {
 
     public void initVars() {
 
-        HashMap<String, Integer> temp = new HashMap<String, Integer>(); // HashMap to allow an easy way to randomize the order of the cases
+        HashMap<String, Integer> temp = new HashMap<String, Integer>(); // HashMap to allow an easy way to randomize the
+                                                                        // order of the cases
 
         Random ranGen = new Random(); // Random generator
 
         ArrayList<String> keys; // Temp variable for use later on
-        String chosenKey; // Temp variable for use later on 
-        
+        String chosenKey; // Temp variable for use later on
+
         // Specific quantities of each Case
         temp.put("i1n", 3); // -1
         temp.put("i2n", 2); // -2
@@ -51,7 +54,7 @@ public class Board extends ArrayList<ArrayList<Case>> {
 
         // Prints the number total quantity of cases for debugging
         System.out.println(temp.values().stream().mapToInt(Integer::valueOf).sum());
-        
+
         for (int row = 0; row < 5; row++) {
             add(new ArrayList<Case>()); // Initializes the new row
             for (int col = 0; col < 5; col++) {
@@ -60,16 +63,18 @@ public class Board extends ArrayList<ArrayList<Case>> {
                 chosenKey = keys.get(ranGen.nextInt(keys.size())); // Chooses a case using the random generator
 
                 get(row).add(decodeKey(chosenKey)); // Adds the chosen case to the board
-                temp.replace(chosenKey, temp.get(chosenKey)-1); // Reduces the Quantity of this case in the HashMap by one
+                temp.replace(chosenKey, temp.get(chosenKey) - 1); // Reduces the Quantity of this case in the HashMap by
+                                                                  // one
 
-                // Checks to see if the Quantity of this case in the HashMap is 0, and if it is, removes it from the HashMap
-                if (temp.get(chosenKey) == 0) { 
+                // Checks to see if the Quantity of this case in the HashMap is 0, and if it is,
+                // removes it from the HashMap
+                if (temp.get(chosenKey) == 0) {
                     temp.remove(chosenKey);
                 }
-                
+
             }
         }
-        
+
     }
 
     // Decodes the key and returns the corresponding case
@@ -79,9 +84,10 @@ public class Board extends ArrayList<ArrayList<Case>> {
 
         // Checks to see if the case is a Cupcake Case
         if (key.startsWith("c")) {
-            // Returns the case created with the parameters of if the key states that it should be half
+            // Returns the case created with the parameters of if the key states that it
+            // should be half
             return Case.createCupcake(!key.contains("h"));
-        } 
+        }
 
         // Checks to see if the case is an Instadeath case
         if (key.startsWith("d")) {
@@ -89,18 +95,21 @@ public class Board extends ArrayList<ArrayList<Case>> {
             return Case.createDeath();
         }
 
-        // If there is an "n" in the key, it will be the only case where there are 3 characters and thereby means the value must be negative
+        // If there is an "n" in the key, it will be the only case where there are 3
+        // characters and thereby means the value must be negative
         if (key.length() == 3) {
             value = -1;
         }
 
         // Multiples the value by the number in the key
         value *= Character.getNumericValue(key.charAt(1));
-        
-        if (key.startsWith("m")) { // Checks to see if the Key specifies it as a Multiplier case, and if it does, returns the case
+
+        if (key.startsWith("m")) { // Checks to see if the Key specifies it as a Multiplier case, and if it does,
+                                   // returns the case
             return Case.createMultiplier(value);
-        } else { 
-            // Since there are no remaining cases, it means that the case must be an iterator
+        } else {
+            // Since there are no remaining cases, it means that the case must be an
+            // iterator
             return Case.createIterator(value);
         }
 
@@ -109,12 +118,13 @@ public class Board extends ArrayList<ArrayList<Case>> {
     // Standard built in toString method customized to allow for easy debugging
     public String toString() {
 
-        // Gets all of the tiles from the board and puts them all into one properly formatted "temp" String
+        // Gets all of the tiles from the board and puts them all into one properly
+        // formatted "temp" String
         String temp = "";
 
         // Fills up the String
         for (int row = 0; row < size(); row++) {
-            for (int col= 0; col < get(row).size(); col++) {
+            for (int col = 0; col < get(row).size(); col++) {
                 temp += String.format("%-15s", getCaseAt(row, col));
             }
             temp += "\n";
@@ -125,11 +135,15 @@ public class Board extends ArrayList<ArrayList<Case>> {
 
     // Returns a case and removes it from the matrix
     public Case chooseCase(int row, int col) {
-        
-        Case temp = getCaseAt(row, col);
-        get(row).remove(col);
-        return temp;
-
+        if (row >= 0 && row < size() && col >= 0 && col < get(row).size()) {
+            Case temp = getCaseAt(row, col);
+            get(row).remove(col);
+            return temp;
+        } else {
+            // Handle the case where the indices are out of bounds
+            System.out.println("Invalid row or column index. Please choose a valid case.");
+            return null; // or throw an exception, depending on your design
+        }
     }
 
     // Method to return the case at a specific row and colomn
