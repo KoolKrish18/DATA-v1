@@ -5,7 +5,11 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
+import data.graphics.guiElements.BoardGraphics;
+
 public class Board extends ArrayList<ArrayList<Case>> {
+
+    public BoardGraphics graphics;
 
     public Board() {
 
@@ -63,6 +67,8 @@ public class Board extends ArrayList<ArrayList<Case>> {
                 chosenKey = keys.get(ranGen.nextInt(keys.size())); // Chooses a case using the random generator
 
                 get(row).add(decodeKey(chosenKey)); // Adds the chosen case to the board
+
+                get(row).get(col).id = row*5 + col;
                 temp.replace(chosenKey, temp.get(chosenKey) - 1); // Reduces the Quantity of this case in the HashMap by
                                                                   // one
 
@@ -74,6 +80,8 @@ public class Board extends ArrayList<ArrayList<Case>> {
 
             }
         }
+
+        graphics = new BoardGraphics(this); // Creates a graphics object for the board
 
     }
 
@@ -125,7 +133,7 @@ public class Board extends ArrayList<ArrayList<Case>> {
         // Fills up the String
         for (int row = 0; row < size(); row++) {
             for (int col = 0; col < get(row).size(); col++) {
-                temp += String.format("%-15s", getCaseAt(row, col));
+                temp += String.format("%-18s", getCaseAt(row, col));
             }
             temp += "\n";
         }
@@ -144,6 +152,25 @@ public class Board extends ArrayList<ArrayList<Case>> {
             System.out.println("Invalid row or column index. Please choose a valid case.");
             return null; // or throw an exception, depending on your design
         }
+    }
+
+    public Case chooseCase(int id) {
+
+        Case temp;
+        for (int row = 0; row < size(); row++) {
+            for (int col = 0; col < get(row).size(); col++) {
+                if (getCaseAt(row, col).id == id) {
+                    
+                    temp = getCaseAt(row, col);
+
+                    get(row).remove(col);
+                    return temp;
+
+                }
+            }
+        }
+
+        return null;
     }
 
     // Method to return the case at a specific row and colomn

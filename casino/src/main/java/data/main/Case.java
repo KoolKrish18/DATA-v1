@@ -1,11 +1,16 @@
 package data.main;
 
+import data.graphics.guiElements.CaseGraphics;
+
 // Case for game
 public abstract class Case {
 
     public abstract int applyChanges(int currentValue); // Method to apply whatever the value of the case is to the current value
 
+    public CaseGraphics graphics;
+
     private String label; // Variable to be used to display a value on the graphics
+    public int id;
 
     public String toString() {
         return label;
@@ -14,6 +19,7 @@ public abstract class Case {
     // Raw Constructor
     private Case(String label) {
         this.label = label; // Sets the label Variable to the specified label from main file
+        graphics = new CaseGraphics(this);
     } // end Raw Constructor
 
     // Creates a multiplier case
