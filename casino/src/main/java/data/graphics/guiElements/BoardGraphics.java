@@ -10,7 +10,7 @@ import data.main.Case;
 
 public class BoardGraphics extends PanelGraphics {
 
-    Board board;
+    Board board; 
 
     public BoardGraphics(Board board) {
         this.board = board;
@@ -19,74 +19,71 @@ public class BoardGraphics extends PanelGraphics {
 
     protected void initVars() {
 
+        // Adds all of the CaseGraphics to this panel
         for (ArrayList<Case> row:board) {
             for (Case c:row) {
                 add(c.graphics);
             }
         }
 
-        System.out.println("Component Count: " + getComponentCount());
-        System.out.println(board);
-
-        setSize(new Dimension(1920*3/4, 1080 * 2/3));;
+        setSize(new Dimension(1920*3/4, 1080 * 2/3)); // Sets the size to 75% of the width and 67% of the height
         setVisible(true);
-        setBackground(Color.BLUE);
+        setBackground(Color.BLUE); // Sets the background colour (Very temorary)
 
-        setLayout(null);
-
-        
+        setLayout(null); // Sets the layout to null to allow for absolute element placement
     }
 
+    // Might remove depending on how the rest of the process goes
     @Override
-    public void paint() {
-        
-    }
+    public void paint() {}
 
+    // On each new frame, this will be called to align the cases
     @Override
     protected void update() {
-        alignCases();
+        alignCases(); 
     }
 
     public void alignCases() {
-        int[] margins = {50, 50, 50, 50};
+        int[] margins = {50, 50, 50, 50}; // Sets the margins as: {left, top, right, bottom}
 
-        int minX = margins[0];
-        int minY = margins[1];
-        int maxX = getWidth() - margins[2];
-        int maxY = getHeight() - margins[3];
-        int nWidth = maxX - minX;
-        int nHeight = maxY - minY;
+        int minX = margins[0]; // Sets the minimum X value depending on the margins
+        int minY = margins[1]; // ^^ but with "Y"
+        int maxX = getWidth() - margins[2]; // Gets the max X value
+        int maxY = getHeight() - margins[3]; // ^^ but with "Y"
+        int nWidth = maxX - minX; // Gets the new width
+        int nHeight = maxY - minY; // Gets the new height
 
-        int xGap;
-        int yGap;
+        int xGap, yGap;
+        int x, y;
 
-        int x;
-        int y;
+        int numRows = board.size(); // Gets the number of rows
+        int numCols; // Variable to be set per row of the number of colomns/elements in each row
 
-        int rowSize = board.size();
-        int colSize;
+        // Sets the vertical gap between cases
+        yGap = nHeight - numRows * CaseGraphics.height; 
+        yGap /= numRows + 1;
 
-        yGap = nHeight - rowSize * CaseGraphics.height;
-        yGap /= rowSize + 1;
-
-        for (int row = 0; row < rowSize; row++) {
+        for (int row = 0; row < numRows; row++) {
             
-            colSize = board.get(row).size();
+            numCols = board.get(row).size();
 
-            xGap = nWidth - (colSize * CaseGraphics.width);
-            xGap /= colSize + 1;
+            // Sets the horizontal gap between cases
+            xGap = nWidth - (numCols * CaseGraphics.width);
+            xGap /= numCols + 1;
 
-            for (int col = 0; col < colSize; col++) {
+            for (int col = 0; col < numCols; col++) {
 
+                // Gets the X value
                 x = minX;
                 x += (col+1) * xGap;
                 x += col * CaseGraphics.width;
 
+                // Gets the Y value
                 y = minY;
                 y += (row+1) * yGap;
                 y += row * CaseGraphics.height;
 
-                setCaseLoc(row, col, x, y);
+                setCaseLoc(row, col, x, y); // Sets the case location
             }
         }
 

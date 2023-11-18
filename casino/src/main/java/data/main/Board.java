@@ -3,7 +3,6 @@ package data.main;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Scanner;
 
 import data.graphics.guiElements.BoardGraphics;
 
@@ -157,6 +156,7 @@ public class Board extends ArrayList<ArrayList<Case>> {
         }
     }
 
+    // Added an id for each Case to allow for searching of a specific case
     public Case chooseCase(int id) {
 
         Case temp;

@@ -1,13 +1,10 @@
 package data.graphics;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
-
-import data.main.Main;
 
 public class GraphicsManager implements Runnable {
 
@@ -21,16 +18,17 @@ public class GraphicsManager implements Runnable {
     private Thread thread;
     final int FPS = 60;
 
-    private Boolean fullScreen = false;
+    private Boolean fullScreen = false; // Variable to display as fullscreen or windowed (will be fullscreen for the casino day)
     
     public void initVars() {
         window = new JFrame();
         
         window.setLayout(null);
-        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Standard close operation so that when you press the X button on the window it shuts down the program as well
+
         if (fullScreen) {
-            window.setUndecorated(true);
-            window.setResizable(false);
+            window.setUndecorated(true); // Removes the banner at the top of the window
+            window.setResizable(false); // Makes it so the window can't be resized
             window.setSize(new Dimension(1920, 1080));
         } else {
             window.setSize(new Dimension(1920, 1080));
@@ -45,6 +43,7 @@ public class GraphicsManager implements Runnable {
         window.add(c);
     }
 
+    // Multithreading stuff, don't worry about it
     public void startThread() {
         thread = new Thread(this);
         thread.start();
@@ -80,12 +79,12 @@ public class GraphicsManager implements Runnable {
     }
 
     private void updateAll() {
-        EventManager.handleEvents();
-        components.forEach(comp -> comp.update());
+        EventManager.handleEvents(); // On each frame, handles all of the pending events
+        components.forEach(comp -> comp.update()); // Calls the "update" function for all of the components
     }
 
     private void repaintAll() {
-        components.forEach(comp -> comp.repaint());
+        components.forEach(comp -> comp.repaint()); // Repaints all of the components, may be used later for further detailing
     }
 
 }

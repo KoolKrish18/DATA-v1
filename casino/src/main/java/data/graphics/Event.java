@@ -10,7 +10,8 @@ public abstract class Event {
 
     private Event() {}
     
-    public static Event caseSelection(Case c){
+    // Event that can get created whenever a case is pressed
+    public static Event caseSelection(Case c) {
 
         return new Event() {
 
