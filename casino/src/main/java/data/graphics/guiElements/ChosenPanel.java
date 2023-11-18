@@ -10,6 +10,8 @@ import data.main.ChosenCases;
 public class ChosenPanel extends PanelGraphics {
 
     public ChosenCases chosenCases;
+    int t = 0; // Time var for end animation
+    public Boolean isEnding = false;
 
     public ChosenPanel(ChosenCases chosenCases) {
         this.chosenCases = chosenCases; // Access to the chosen cases class
@@ -31,6 +33,9 @@ public class ChosenPanel extends PanelGraphics {
     @Override
     protected void update() {
         alignCases();
+        if (isEnding) {
+            animateEnd();
+        }
     }
 
     // Aligns cases
@@ -61,6 +66,33 @@ public class ChosenPanel extends PanelGraphics {
     public void paint() {
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'paint'");
+    }
+
+    public void animateEnd() {
+        t++;
+        if (getY() <= 0) {
+            setSize(WIDTH, 1080);
+            setLocation(0, 0);
+        } else {
+            
+            int y;
+
+            y = 2*1080/3 - t*9;
+
+            setLocation(0, y);
+        }
+
+        if (getHeight() < 1080) {
+            int height;
+            height = t*9 + 1080/3;
+            setSize(1920, height);
+        } else {
+            setSize(1920, 1080);
+        }
+
+        if (getHeight() < 1080 && getY() <= 0) {
+            isEnding = false;
+        }
     }
     
 }

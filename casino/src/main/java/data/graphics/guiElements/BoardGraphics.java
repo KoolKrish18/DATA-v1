@@ -93,5 +93,13 @@ public class BoardGraphics extends PanelGraphics {
         //System.out.println(row + " , " + col + " , " + x + " , " + y);
         board.getCaseAt(row, col).graphics.setLocation(x, y);
     }
+
+    public void lockButtons() {
+        for (ArrayList<Case> row:board) {
+            for (Case c: row) {
+                c.graphics.setEnabled(false);
+            }
+        }
+    }
      
 }

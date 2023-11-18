@@ -2,6 +2,7 @@ package data.graphics;
 
 import data.main.Board;
 import data.main.Case;
+import data.main.ChosenCases;
 import data.main.Main;
 
 public abstract class Event {
@@ -28,6 +29,23 @@ public abstract class Event {
             
         };
 
+    }
+
+    public static Event endGame(ChosenCases c) {
+
+        return new Event() {
+
+            @Override
+            public void onEvent() {
+                Board board = Main.board;
+                board.graphics.lockButtons();
+                board.graphics.setVisible(false);
+                board.chosenCases.graphics.isEnding = true;
+                // Sort all cases
+                // Start end animation
+            }
+            
+        };
     }
 
 }
