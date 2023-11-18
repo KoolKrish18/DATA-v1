@@ -10,6 +10,7 @@ import data.graphics.guiElements.BoardGraphics;
 public class Board extends ArrayList<ArrayList<Case>> {
 
     public BoardGraphics graphics;
+    public ChosenCases chosenCases;
 
     public Board() {
 
@@ -34,6 +35,8 @@ public class Board extends ArrayList<ArrayList<Case>> {
      */
 
     public void initVars() {
+
+        chosenCases = new ChosenCases();
 
         HashMap<String, Integer> temp = new HashMap<String, Integer>(); // HashMap to allow an easy way to randomize the
                                                                         // order of the cases

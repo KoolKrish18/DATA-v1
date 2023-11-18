@@ -32,6 +32,7 @@ public class Main {
         int usertickets = 0;
 
         gManager.addComponent(board.graphics);
+        gManager.addComponent(board.chosenCases.graphics);
         gManager.startThread();
         
         for (int k = 0; k < SQUARE; k++) {

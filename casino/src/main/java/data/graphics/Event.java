@@ -8,9 +8,7 @@ public abstract class Event {
 
     public abstract void onEvent();
 
-    private Event() {
-
-    }
+    private Event() {}
     
     public static Event caseSelection(Case c){
 
@@ -18,7 +16,13 @@ public abstract class Event {
 
             @Override
             public void onEvent() {
-                Main.board.chooseCase(c.id);
+                Board board = Main.board;
+                board.chooseCase(c.id);
+                board.chosenCases.addCase(c);
+
+                c.graphics.setText(c.toString());
+
+                board.graphics.remove(c.graphics);
             }
             
         };

@@ -13,7 +13,6 @@ import data.main.Case;
 
 public class CaseGraphics extends JButton {
     
-
     public static int width = 170;
     public static int height = 60;
     Case c;
@@ -31,7 +30,7 @@ public class CaseGraphics extends JButton {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventManager.addEvent(Event.caseSelection(c));
-                setVisible(false);
+                setEnabled(false);
             }
             
         });

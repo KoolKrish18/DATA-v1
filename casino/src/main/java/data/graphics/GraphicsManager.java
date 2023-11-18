@@ -37,7 +37,6 @@ public class GraphicsManager implements Runnable {
         }
 
         window.setVisible(true);
-
         
     }
 
