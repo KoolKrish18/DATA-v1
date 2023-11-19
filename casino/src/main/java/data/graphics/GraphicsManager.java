@@ -12,14 +12,32 @@ public class GraphicsManager implements Runnable {
         initVars();
     }
 
-    private ArrayList<PanelGraphics> components = new ArrayList<PanelGraphics>();
+    private ArrayList<PanelGraphics> components;
     
     private JFrame window;
     private Thread thread;
     final int FPS = 60;
 
-    private Boolean fullScreen = true; // Variable to display as fullscreen or windowed (will be fullscreen for the casino day)
+    private Boolean fullScreen = false; // Variable to display as fullscreen or windowed (will be fullscreen for the casino day)
     
+    public void setup() {
+
+        try {
+            reset();
+        } catch (NullPointerException ex) {
+            // Swalllows exception as this is completely normal
+        }
+        
+        components = new ArrayList<PanelGraphics>();
+    }
+
+    private void reset() {
+        for (PanelGraphics pg:components) {
+            window.remove(pg);
+        }
+    }
+
+
     public void initVars() {
         window = new JFrame();
         
@@ -33,6 +51,7 @@ public class GraphicsManager implements Runnable {
         } else {
             window.setSize(new Dimension(1920, 1080));
         }
+
 
         window.setVisible(true);
         
@@ -56,10 +75,13 @@ public class GraphicsManager implements Runnable {
         
         while (thread != null) {
 
-            updateAll();
+            try {
+                updateAll();
 
-            repaintAll();
-
+                repaintAll();   
+            } catch (NullPointerException ex) {
+                continue;
+            }
             try {
 
                 double remainingTime = nextDrawTime - System.nanoTime();

@@ -24,4 +24,20 @@ public class ChosenCases extends ArrayList<Case> {
         }
     } 
 
+    public void order() {
+        int minIndex = 0;
+        for (int i = 0; i < size(); i++) {
+            if (get(i).caseType.equals("m")) {
+                swap(i, minIndex);
+                minIndex++;
+            }
+        }
+    }
+
+    private void swap(int index1, int index2) {
+        Case temp = get(index1);
+        set(index1, get(index2));
+        set(index2, temp);
+    }
+
 }

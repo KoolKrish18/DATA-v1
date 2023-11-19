@@ -11,21 +11,25 @@ public abstract class Case {
 
     private String label; // Variable to be used to display a value on the graphics
     public int id;
+    public String caseType;
 
     public String toString() {
         return label;
     }
 
     // Raw Constructor
-    private Case(String label) {
+    private Case(String label, String caseType) {
         this.label = label; // Sets the label Variable to the specified label from main file
+        this.caseType = caseType;
         graphics = new CaseGraphics(this);
+
+        
     } // end Raw Constructor
 
     // Creates a multiplier case
     // I.E. x2 or x3
     public static Case createMultiplier(int multiplier) {
-        return new Case("x" + multiplier) {
+        return new Case("x" + multiplier, "m") {
 
             @Override
             public int applyChanges(int currentValue) {
@@ -48,7 +52,7 @@ public abstract class Case {
             label = "+" + String.valueOf(iteration);
         }
 
-        return new Case(label) {
+        return new Case(label, "i") {
 
             @Override
             public int applyChanges(int currentValue) {
@@ -76,7 +80,7 @@ public abstract class Case {
 
         label += "Cupcake";
 
-        return new Case(label) {
+        return new Case(label, "c") {
 
             @Override
             public int applyChanges(int currentValue) {
@@ -89,7 +93,7 @@ public abstract class Case {
 
     // Instadeath cases, self explanatory
     public static Case createDeath() {
-        return new Case("Instadeath") {
+        return new Case("Instadeath", "d") {
 
             @Override
             public int applyChanges(int currentValue) {

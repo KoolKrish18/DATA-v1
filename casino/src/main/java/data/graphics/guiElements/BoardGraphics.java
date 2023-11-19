@@ -1,9 +1,7 @@
 package data.graphics.guiElements;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +24,6 @@ public class BoardGraphics extends PanelGraphics {
     }
 
     protected void initVars() {
-
-        
 
         // Adds all of the CaseGraphics to this panel
         for (ArrayList<Case> row:board) {

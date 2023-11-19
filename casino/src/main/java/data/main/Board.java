@@ -70,7 +70,7 @@ public class Board extends ArrayList<ArrayList<Case>> {
 
                 get(row).add(decodeKey(chosenKey)); // Adds the chosen case to the board
 
-                get(row).get(col).id = row*5 + col;
+                getCaseAt(row, col).id = row*5 + col;
                 temp.replace(chosenKey, temp.get(chosenKey) - 1); // Reduces the Quantity of this case in the HashMap by
                                                                   // one
 

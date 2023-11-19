@@ -49,6 +49,7 @@ public class CaseGraphics extends JButton {
             }
             
         });
+        
     }
 
     // Method to flip the case over to reveal the value

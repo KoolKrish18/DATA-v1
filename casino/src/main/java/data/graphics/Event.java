@@ -38,14 +38,29 @@ public abstract class Event {
             @Override
             public void onEvent() {
                 Board board = Main.board;
+                Main.infoPanel.setVisible(false);
+                
                 board.graphics.lockButtons();
                 board.graphics.setVisible(false);
                 board.chosenCases.graphics.isEnding = true;
-                // Sort all cases
-                // Start end animation
+
+                board.chosenCases.order();
             }
             
         };
+    }
+
+    public static Event reset() {
+
+        return new Event() {
+
+            @Override
+            public void onEvent() {
+                Main.play();
+            }
+
+        };
+
     }
 
 }

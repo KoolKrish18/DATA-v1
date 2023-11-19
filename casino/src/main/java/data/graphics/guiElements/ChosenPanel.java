@@ -5,12 +5,18 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
+import data.graphics.Event;
+import data.graphics.EventManager;
 import data.graphics.PanelGraphics;
 import data.main.ChosenCases;
 
@@ -19,6 +25,8 @@ public class ChosenPanel extends PanelGraphics {
     public ChosenCases chosenCases;
     int t = 0; // Time var for end animation
     public Boolean isEnding = false;
+
+    public JButton resetButton;
 
     public ChosenPanel(ChosenCases chosenCases) {
         this.chosenCases = chosenCases; // Access to the chosen cases class
@@ -35,6 +43,30 @@ public class ChosenPanel extends PanelGraphics {
         setSize(new Dimension(1920, 1080 * 1/6)); // Sets the Size to 75% of the width and 33% of the height
         setVisible(true);
 
+        initResetButton();
+
+    }
+
+    public void initResetButton() {
+        resetButton = new JButton();
+
+        resetButton.setSize(50, 50);
+        resetButton.setLocation(getWidth() - 35 - resetButton.getWidth(), 25);
+        resetButton.setIcon(new ImageIcon(Paths.get("").toAbsolutePath().toString() + "\\casino\\src\\main\\resources\\reset.png"));
+        resetButton.setBackground(new Color(0, 0, 0, 0));
+        resetButton.setBorderPainted(false);
+        resetButton.setVisible(true);
+
+        resetButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EventManager.addEvent(Event.reset());
+            }
+            
+        });
+
+        add(resetButton);
     }
 
     @Override
