@@ -2,7 +2,14 @@ package data.graphics.guiElements;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+
+import javax.imageio.ImageIO;
 
 import data.graphics.PanelGraphics;
 import data.main.ChosenCases;
@@ -24,8 +31,8 @@ public class ChosenPanel extends PanelGraphics {
         setLayout(null); // Sets the layout to null for Absoute placing
         setBackground(Color.CYAN); // Sets the background colour (very temporary)
     
-        setLocation(new Point(0, 1080*2/3)); // Sets the location to the left wall and 67% of the height down
-        setSize(new Dimension(1920 * 3/4, 1080 * 1/3)); // Sets the Size to 75% of the width and 33% of the height
+        setLocation(new Point(0, 1080*5/6)); // Sets the location to the left wall and 67% of the height down
+        setSize(new Dimension(1920, 1080 * 1/6)); // Sets the Size to 75% of the width and 33% of the height
         setVisible(true);
 
     }
@@ -63,9 +70,14 @@ public class ChosenPanel extends PanelGraphics {
     }
 
     @Override
-    public void paint() {
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'paint'");
+    public void draw(Graphics g) {
+        try {
+            Image img = ImageIO.read(new File(Paths.get("").toAbsolutePath().toString() + "\\casino\\src\\main\\resources\\Background2.png"));
+            g.drawImage(img, 0, 0, getWidth(), getHeight(),null);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public void animateEnd() {
@@ -77,14 +89,14 @@ public class ChosenPanel extends PanelGraphics {
             
             int y;
 
-            y = 2*1080/3 - t*9;
+            y = 5*1080/6 - t*18;
 
             setLocation(0, y);
         }
 
         if (getHeight() < 1080) {
             int height;
-            height = t*9 + 1080/3;
+            height = t*18 + 1080/6;
             setSize(1920, height);
         } else {
             setSize(1920, 1080);

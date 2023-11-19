@@ -2,7 +2,15 @@ package data.graphics.guiElements;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import data.graphics.PanelGraphics;
 import data.main.Board;
@@ -19,6 +27,8 @@ public class BoardGraphics extends PanelGraphics {
 
     protected void initVars() {
 
+        
+
         // Adds all of the CaseGraphics to this panel
         for (ArrayList<Case> row:board) {
             for (Case c:row) {
@@ -26,16 +36,24 @@ public class BoardGraphics extends PanelGraphics {
             }
         }
 
-        setSize(new Dimension(1920*3/4, 1080 * 2/3)); // Sets the size to 75% of the width and 67% of the height
+        setSize(new Dimension(1920*3/4, 1080 * 5/6)); // Sets the size to 75% of the width and 67% of the height
         setVisible(true);
-        setBackground(Color.BLUE); // Sets the background colour (Very temorary)
+        //setBackground(Color.BLUE); // Sets the background colour (Very temorary)
 
         setLayout(null); // Sets the layout to null to allow for absolute element placement
     }
 
     // Might remove depending on how the rest of the process goes
     @Override
-    public void paint() {}
+    public void draw(Graphics g) {
+        try {
+            Image img = ImageIO.read(new File(Paths.get("").toAbsolutePath().toString() + "\\casino\\src\\main\\resources\\Background.png"));
+            g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
     // On each new frame, this will be called to align the cases
     @Override

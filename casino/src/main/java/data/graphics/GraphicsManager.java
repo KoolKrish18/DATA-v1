@@ -18,7 +18,7 @@ public class GraphicsManager implements Runnable {
     private Thread thread;
     final int FPS = 60;
 
-    private Boolean fullScreen = false; // Variable to display as fullscreen or windowed (will be fullscreen for the casino day)
+    private Boolean fullScreen = true; // Variable to display as fullscreen or windowed (will be fullscreen for the casino day)
     
     public void initVars() {
         window = new JFrame();
