@@ -9,6 +9,7 @@ import data.graphics.guiElements.ChosenPanel;
 public class ChosenCases extends ArrayList<Case> {
 
     public ChosenPanel graphics; 
+    public int amt = 1;
 
     public ChosenCases() {
         graphics = new ChosenPanel(this);
@@ -35,9 +36,17 @@ public class ChosenCases extends ArrayList<Case> {
     }
 
     private void swap(int index1, int index2) {
+        for (Case c:this) {
+            System.out.print(c + " ");
+        }
+        System.out.println();
         Case temp = get(index1);
         set(index1, get(index2));
         set(index2, temp);
+        for (Case c:this) {
+            System.out.print(c + " ");
+        }
+        System.out.println();
     }
 
 }

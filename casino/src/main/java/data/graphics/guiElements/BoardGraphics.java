@@ -32,7 +32,7 @@ public class BoardGraphics extends PanelGraphics {
             }
         }
 
-        setSize(new Dimension(1920*3/4, 1080 * 5/6)); // Sets the size to 75% of the width and 67% of the height
+        setSize(new Dimension(1920, 1080 * 5/6)); // Sets the size to 75% of the width and 67% of the height
         setVisible(true);
         //setBackground(Color.BLUE); // Sets the background colour (Very temorary)
 

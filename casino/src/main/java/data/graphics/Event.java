@@ -1,5 +1,6 @@
 package data.graphics;
 
+import data.graphics.guiElements.ChosenPanel;
 import data.main.Board;
 import data.main.Case;
 import data.main.ChosenCases;
@@ -22,8 +23,6 @@ public abstract class Event {
                 board.chooseCase(c.id);
                 board.chosenCases.addCase(c);
 
-                c.graphics.setText(c.toString());
-
                 board.graphics.remove(c.graphics);
             }
             
@@ -38,11 +37,11 @@ public abstract class Event {
             @Override
             public void onEvent() {
                 Board board = Main.board;
-                Main.infoPanel.setVisible(false);
                 
                 board.graphics.lockButtons();
                 board.graphics.setVisible(false);
                 board.chosenCases.graphics.isEnding = true;
+                board.chosenCases.graphics.caseOpening = true;
 
                 board.chosenCases.order();
             }
@@ -57,6 +56,34 @@ public abstract class Event {
             @Override
             public void onEvent() {
                 Main.play();
+            }
+
+        };
+
+    }
+
+    public static Event openCase(ChosenPanel chosenPanel) {
+
+        return new Event() {
+
+            @Override
+            public void onEvent() {
+                
+                chosenPanel.openChest();
+
+            }
+
+        };
+
+    }
+
+    public static Event onAnimationEnd(Case c) {
+        return new Event() {
+
+            @Override
+            public void onEvent() {
+                Main.board.chosenCases.amt = c.applyChanges(Main.board.chosenCases.amt);
+
             }
 
         };

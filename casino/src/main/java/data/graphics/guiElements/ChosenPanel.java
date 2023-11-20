@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -14,6 +16,7 @@ import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import data.graphics.Event;
 import data.graphics.EventManager;
@@ -24,9 +27,13 @@ public class ChosenPanel extends PanelGraphics {
 
     public ChosenCases chosenCases;
     int t = 0; // Time var for end animation
-    public Boolean isEnding = false;
+    public Boolean isEnding = false; // For animation
+    public Boolean caseOpening = false;
 
     public JButton resetButton;
+    public JLabel moneyAmt;
+
+    private int openIndex = 0;
 
     public ChosenPanel(ChosenCases chosenCases) {
         this.chosenCases = chosenCases; // Access to the chosen cases class
@@ -44,7 +51,31 @@ public class ChosenPanel extends PanelGraphics {
         setVisible(true);
 
         initResetButton();
+        initMoneyAmt();
 
+        addMouseListener(new MouseAdapter() {
+
+            public void mousePressed(MouseEvent e) {
+
+                if (caseOpening) {
+                    EventManager.addEvent(Event.openCase(ChosenPanel.this));
+                }
+            }
+        });
+
+    }
+
+    public void initMoneyAmt() {
+        moneyAmt = new JLabel("Current Money: $1");
+
+        moneyAmt.setSize(getWidth(), 72);
+        moneyAmt.setLocation(0, 125);
+        moneyAmt.setHorizontalAlignment(JLabel.CENTER);
+        moneyAmt.setVisible(false);
+        moneyAmt.setFont(getFont().deriveFont(72f));
+        moneyAmt.setForeground(Color.WHITE);
+
+        add(moneyAmt);
     }
 
     public void initResetButton() {
@@ -71,10 +102,15 @@ public class ChosenPanel extends PanelGraphics {
 
     @Override
     protected void update() {
-        alignCases();
         if (isEnding) {
             animateEnd();
+            alignCases();
+        } else if (!caseOpening) {
+            alignCases();
         }
+
+        moneyAmt.setText("Current Money: $" + chosenCases.amt);
+
     }
 
     // Aligns cases
@@ -134,8 +170,16 @@ public class ChosenPanel extends PanelGraphics {
             setSize(1920, 1080);
         }
 
-        if (getHeight() < 1080 && getY() <= 0) {
+        if (getHeight() <= 1080 && getY() <= 0) {
             isEnding = false;
+            moneyAmt.setVisible(true);
+        }
+    }
+
+    public void openChest() {
+        if (openIndex < chosenCases.size()) {
+            chosenCases.get(openIndex).graphics.open();
+            openIndex++;
         }
     }
     

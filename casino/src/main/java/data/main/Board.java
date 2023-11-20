@@ -46,17 +46,17 @@ public class Board extends ArrayList<ArrayList<Case>> {
         String chosenKey; // Temp variable for use later on
 
         // Specific quantities of each Case
-        temp.put("i1n", 3); // -1
+        temp.put("i1n", 4); // -1
         temp.put("i2n", 2); // -2
         temp.put("i3n", 1); // -3
         temp.put("i3", 1); // +3
         temp.put("i2", 2); // +2
-        temp.put("i1", 3); // +1
+        temp.put("i1", 4); // +1
         temp.put("m2", 3); // x2
         temp.put("m3", 1); // x3
         temp.put("c", 1); // Full Cupcake
         temp.put("ch", 3); // Half Cupcake
-        temp.put("d", 5); // Instadeath
+        temp.put("d", 3); // Instadeath
 
         // Prints the number total quantity of cases for debugging
         System.out.println(temp.values().stream().mapToInt(Integer::valueOf).sum());

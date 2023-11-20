@@ -84,8 +84,8 @@ public abstract class Case {
 
             @Override
             public int applyChanges(int currentValue) {
-                // Unadded cupcake stuff, will get to after the gui is in a good state
-                throw new UnsupportedOperationException("Unimplemented cupcake handling");
+                //NOTHING HERE
+                return currentValue;
             }
 
         };
@@ -97,8 +97,7 @@ public abstract class Case {
 
             @Override
             public int applyChanges(int currentValue) {
-                // Unadded death stuff, will get to after the gui is in a good state
-                throw new UnsupportedOperationException("Unimplemented death handling");
+                return 0;
             }
 
         };
