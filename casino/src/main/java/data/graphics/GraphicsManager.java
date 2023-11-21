@@ -13,13 +13,14 @@ public class GraphicsManager implements Runnable {
     }
 
     private ArrayList<PanelGraphics> components;
-    
+
     private JFrame window;
     private Thread thread;
     final int FPS = 60;
 
-    private Boolean fullScreen = false; // Variable to display as fullscreen or windowed (will be fullscreen for the casino day)
-    
+    private Boolean fullScreen = true; // Variable to display as fullscreen or windowed (will be fullscreen for the
+                                       // casino day)
+
     public void setup() {
 
         try {
@@ -27,22 +28,23 @@ public class GraphicsManager implements Runnable {
         } catch (NullPointerException ex) {
             // Swalllows exception as this is completely normal
         }
-        
+
         components = new ArrayList<PanelGraphics>();
     }
 
     private void reset() {
-        for (PanelGraphics pg:components) {
+        for (PanelGraphics pg : components) {
             window.remove(pg);
         }
     }
 
-
     public void initVars() {
         window = new JFrame();
-        
+
         window.setLayout(null);
-        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Standard close operation so that when you press the X button on the window it shuts down the program as well
+        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Standard close operation so that when you
+                                                                        // press the X button on the window it shuts
+                                                                        // down the program as well
 
         if (fullScreen) {
             window.setUndecorated(true); // Removes the banner at the top of the window
@@ -52,9 +54,8 @@ public class GraphicsManager implements Runnable {
             window.setSize(new Dimension(1920, 1080));
         }
 
-
         window.setVisible(true);
-        
+
     }
 
     public void addComponent(PanelGraphics c) {
@@ -70,15 +71,15 @@ public class GraphicsManager implements Runnable {
 
     @Override
     public void run() {
-        double drawInterval = 1000000000/FPS;
+        double drawInterval = 1000000000 / FPS;
         double nextDrawTime = System.nanoTime() + drawInterval;
-        
+
         while (thread != null) {
 
             try {
                 updateAll();
 
-                repaintAll();   
+                repaintAll();
             } catch (NullPointerException ex) {
                 continue;
             }
@@ -95,7 +96,8 @@ public class GraphicsManager implements Runnable {
 
                 nextDrawTime += drawInterval;
 
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {
+            }
 
         }
     }
@@ -106,7 +108,8 @@ public class GraphicsManager implements Runnable {
     }
 
     private void repaintAll() {
-        components.forEach(comp -> comp.repaint()); // Repaints all of the components, may be used later for further detailing
+        components.forEach(comp -> comp.repaint()); // Repaints all of the components, may be used later for further
+                                                    // detailing
     }
 
 }

@@ -46,7 +46,7 @@ public class Board extends ArrayList<ArrayList<Case>> {
         String chosenKey; // Temp variable for use later on
 
         // Specific quantities of each Case
-        temp.put("i1n", 4); // -1
+        temp.put("i1n", 5); // -1
         temp.put("i2n", 2); // -2
         temp.put("i3n", 1); // -3
         temp.put("i3", 1); // +3
@@ -56,7 +56,7 @@ public class Board extends ArrayList<ArrayList<Case>> {
         temp.put("m3", 1); // x3
         temp.put("c", 1); // Full Cupcake
         temp.put("ch", 3); // Half Cupcake
-        temp.put("d", 3); // Instadeath
+        temp.put("d", 2); // Instadeath
 
         // Prints the number total quantity of cases for debugging
         System.out.println(temp.values().stream().mapToInt(Integer::valueOf).sum());
@@ -70,7 +70,7 @@ public class Board extends ArrayList<ArrayList<Case>> {
 
                 get(row).add(decodeKey(chosenKey)); // Adds the chosen case to the board
 
-                getCaseAt(row, col).id = row*5 + col;
+                getCaseAt(row, col).id = row * 5 + col;
                 temp.replace(chosenKey, temp.get(chosenKey) - 1); // Reduces the Quantity of this case in the HashMap by
                                                                   // one
 
@@ -163,7 +163,7 @@ public class Board extends ArrayList<ArrayList<Case>> {
         for (int row = 0; row < size(); row++) {
             for (int col = 0; col < get(row).size(); col++) {
                 if (getCaseAt(row, col).id == id) {
-                    
+
                     temp = getCaseAt(row, col);
 
                     get(row).remove(col);
